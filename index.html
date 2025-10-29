@@ -79,6 +79,17 @@
 
   <!-- EMAILJS SDK (optional): will be used if you configure USER_ID / SERVICE_ID / TEMPLATE_ID below -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  // EmailJS config
+  const EMAILJS_USER_ID = "VyW9JTJ8cjA21sWHW";
+  const EMAILJS_SERVICE_ID = "service_4tihfz3";
+  const EMAILJS_TEMPLATE_ID = "template_4amc48h";
+  const HOST_EMAIL = "koledowotd@gmail.com";
+
+  // Initialize EmailJS (v3)
+  if (EMAILJS_USER_ID) {
+    emailjs.init(EMAILJS_USER_ID);
+  }
 </head>
 <body>
   <div class="wrap">
