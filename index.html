@@ -181,12 +181,9 @@
 
     // Initialize EmailJS if configured
     if (EMAILJS_USER_ID) {
-  emailjs.init({
-    publicKey: EMAILJS_USER_ID,
-});
+  emailjs.init(EMAILJS_USER_ID);
 
       }
-    }
 
     const agreeCheckbox = document.getElementById('agree');
     const confirmBtn = document.getElementById('confirmBtn');
