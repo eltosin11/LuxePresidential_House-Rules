@@ -6,7 +6,6 @@
   <title>House Rules — Confirmation</title>
   <meta name="description" content="Read the house rules and confirm to receive access code." />
   <style>
-    /* Simple, clean, mobile-friendly styles */
     :root{
       --bg:#f7fafc; --card:#ffffff; --muted:#6b7280; --accent:#0f766e;
       --danger:#b91c1c; --shadow: 0 6px 18px rgba(15,23,42,0.08);
@@ -76,20 +75,8 @@
       .card{padding:18px}
     }
   </style>
-
-  <!-- EMAILJS SDK (optional): will be used if you configure USER_ID / SERVICE_ID / TEMPLATE_ID below -->
+  <!-- EMAILJS SDK -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-  // EmailJS config
-  const EMAILJS_USER_ID = "VyW9JTJ8cjA21sWHW";
-  const EMAILJS_SERVICE_ID = "service_4tihfz3";
-  const EMAILJS_TEMPLATE_ID = "template_4amc48h";
-  const HOST_EMAIL = "koledowotd@gmail.com";
-
-  // Initialize EmailJS (v3)
-  if (EMAILJS_USER_ID) {
-    emailjs.init(EMAILJS_USER_ID);
-  }
 </head>
 <body>
   <div class="wrap">
@@ -145,56 +132,36 @@
         </ul>
       </div>
 
-      <!-- Confirmation -->
       <div class="section" aria-labelledby="confirm">
         <div class="checkbox-row">
           <input id="agree" type="checkbox" aria-describedby="agree-desc" />
           <label for="agree">I have read and agree to the house rules.</label>
         </div>
-
         <button id="confirmBtn" class="primary" disabled>Confirm &amp; Continue</button>
-
         <div id="thankyou" class="thankyou" role="status" aria-live="polite">
           ✅ Thank you for confirming. Your host will send you your access code shortly.
         </div>
-
         <p class="small" style="margin-top:10px">
           By confirming you agree to follow the house rules. <span class="host-sign">Warm regards, Kole</span>
         </p>
       </div>
     </div>
-
     <footer>
       <p class="small">If automatic email does not work, your browser will open an email composer so you can send the confirmation manually.</p>
     </footer>
   </div>
 
   <script>
-    // -----------------------------
-    // CONFIGURATION - EDIT THESE
-    // -----------------------------
-    // Fill these with values you get from emailjs.com
-    // - USER_ID: your EmailJS user id (a public key)
-    // - SERVICE_ID: the service id you create under EmailJS (e.g., "service_xxx")
-    // - TEMPLATE_ID: the template id you create under EmailJS (e.g., "template_xxx")
-    //
-    // If you don't want to use EmailJS, leave them blank and the page will fall back to 'mailto:'.
-    const EMAILJS_USER_ID = "VyW9JTJ8cjA21sWHW";     // <-- put your EmailJS USER ID here (example: "user_abc123")
-    const EMAILJS_SERVICE_ID = "service_4tihfz3";  // <-- put your EmailJS SERVICE ID here
-    const EMAILJS_TEMPLATE_ID = "template_4amc48h"; // <-- put your EmailJS TEMPLATE ID here
- 
-    // Host email to receive confirmations
+    // EmailJS configuration
+    const EMAILJS_USER_ID = "VyW9JTJ8cjA21sWHW";
+    const EMAILJS_SERVICE_ID = "service_4tihfz3";
+    const EMAILJS_TEMPLATE_ID = "template_4amc48h";
     const HOST_EMAIL = "koledowotd@gmail.com";
 
-    // -----------------------------
-    // END CONFIGURATION
-    // -----------------------------
-
-    // Initialize EmailJS if configured
+    // Initialize EmailJS (v3)
     if (EMAILJS_USER_ID) {
-  emailjs.init(EMAILJS_USER_ID);
-
-      }
+      emailjs.init(EMAILJS_USER_ID);
+    }
 
     const agreeCheckbox = document.getElementById('agree');
     const confirmBtn = document.getElementById('confirmBtn');
@@ -212,7 +179,6 @@
       const timestamp = new Date().toISOString(); // ISO timestamp (UTC)
       const humanTime = (new Date()).toLocaleString();
 
-      // Prefer EmailJS (automatic). Must have all three ids configured.
       if (EMAILJS_USER_ID && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && typeof emailjs !== 'undefined') {
         const templateParams = {
           host_email: HOST_EMAIL,
@@ -220,22 +186,17 @@
           timestamp_local: humanTime,
           agreement: "Guest confirmed house rules (no name provided)."
         };
-
         try {
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-          // success
           showThankYou();
         } catch (err) {
           console.error('EmailJS send failed:', err);
-          // fallback to mailto if automatic send fails
           fallbackMailto(HOST_EMAIL, humanTime);
         } finally {
           confirmBtn.disabled = false;
           confirmBtn.textContent = 'Confirm & Continue';
         }
-
       } else {
-        // Fallback: open user's email client (not fully automatic)
         fallbackMailto(HOST_EMAIL, humanTime);
         confirmBtn.disabled = false;
         confirmBtn.textContent = 'Confirm & Continue';
@@ -244,22 +205,17 @@
 
     function showThankYou(){
       thankyou.style.display = 'block';
-      // Optionally hide the button and checkbox to prevent repeated submits
       agreeCheckbox.disabled = true;
       confirmBtn.style.display = 'none';
-      // scroll to message for mobile users
       thankyou.scrollIntoView({behavior:'smooth', block:'center'});
     }
 
     function fallbackMailto(hostEmail, humanTime){
-      // Compose a short confirmation email to the host. Guests must send this manually.
       const subject = encodeURIComponent('House Rules Confirmation');
       const body = encodeURIComponent(
         `Hello Kole,%0D%0A%0D%0AThis is an automatic confirmation that a guest confirmed the house rules on ${humanTime}.%0D%0A%0D%0ANote: This message was created by the property's confirmation page. The guest did not provide a name.%0D%0A%0D%0AThanks,%0D%0AGuest`
       );
-      // Open default mail client
       window.location.href = `mailto:${hostEmail}?subject=${subject}&body=${body}`;
-      // Show the thank-you immediately (we can't detect if they actually sent the email)
       showThankYou();
     }
 
@@ -273,18 +229,12 @@
     QUICK EMAILJS SETUP (if you choose to use EmailJS - recommended for automatic emailing):
 
     1) Go to https://www.emailjs.com/ and sign up / log in.
-    2) Add an Email Service (Gmail, Outlook, or another SMTP relay) or use their built-in options.
-    3) Create an Email Template. In the template body you can use these variables:
-       - host_email, timestamp_iso, timestamp_local, agreement
-       Example template body:
-         "Host: {{host_email}}
-          Agreement: {{agreement}}
-          Timestamp (UTC): {{timestamp_iso}}
-          Timestamp (Local): {{timestamp_local}}"
-    4) Note the SERVICE ID (e.g., service_xxx) and TEMPLATE ID (e.g., template_xxx).
-    5) Go to Account -> EmailJS SDK -> copy your USER ID (user_xxx) and paste into EMAILJS_USER_ID above.
-    6) Fill SERVICE_ID and TEMPLATE_ID in the top of this file.
+    2) Add an Email Service (Gmail, Outlook, etc.).
+    3) Create an Email Template. Make sure to use variables: host_email, timestamp_iso, timestamp_local, agreement
+    4) Note the SERVICE ID and TEMPLATE ID.
+    5) Go to Account -> EmailJS SDK -> copy your PUBLIC KEY and paste into EMAILJS_USER_ID above.
+    6) Fill SERVICE_ID and TEMPLATE_ID at the top of this file.
     7) Upload this file to your host and test.
-
+  -->
 </body>
 </html>
