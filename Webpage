@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>House Rules — Confirmation</title>
+  <meta name="description" content="Read the house rules and confirm to receive access code." />
+  <style>
+    /* Simple, clean, mobile-friendly styles */
+    :root{
+      --bg:#f7fafc; --card:#ffffff; --muted:#6b7280; --accent:#0f766e;
+      --danger:#b91c1c; --shadow: 0 6px 18px rgba(15,23,42,0.08);
+      --maxw:760px;
+      --radius:12px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg, var(--bg), #ffffff);
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:32px 16px;
+      color:#0f172a;
+    }
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+    }
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:26px;
+      box-sizing:border-box;
+    }
+    h1{margin:0 0 8px 0; font-size:20px}
+    p.lead{margin:0 0 18px 0; color:var(--muted)}
+    .section{margin:18px 0}
+    .rule-title{display:flex;align-items:center;gap:10px}
+    .rule-title h2{font-size:15px;margin:0}
+    ul.rules{margin:10px 0 0 18px;color:var(--muted)}
+    ul.rules li{margin:8px 0; line-height:1.4}
+    .fees{font-size:13px;color:#374151}
+    .checkbox-row{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:18px 0 12px 0;
+    }
+    .checkbox-row input[type="checkbox"]{width:18px;height:18px}
+    button.primary{
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow: 0 6px 14px rgba(15,119,110,0.12);
+    }
+    button.primary[disabled]{opacity:0.56; cursor:not-allowed}
+    .thankyou{
+      display:none;
+      margin-top:18px;
+      padding:14px;
+      border-radius:10px;
+      background:#ecfdf5;
+      color:#064e3b;
+    }
+    .small{font-size:13px;color:var(--muted)}
+    footer{margin-top:14px;font-size:13px;color:var(--muted);text-align:center}
+    .host-sign{margin-top:14px;font-weight:600;color:#0f172a}
+    @media (max-width:520px){
+      .card{padding:18px}
+    }
+  </style>
+
+  <!-- EMAILJS SDK (optional): will be used if you configure USER_ID / SERVICE_ID / TEMPLATE_ID below -->
+  <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main" aria-labelledby="title">
+      <h1 id="title">🏡 Welcome & House Rules</h1>
+      <p class="lead">Thanks for choosing to stay with us! You’ll be staying in someone's home — please treat it with care and respect. We appreciate your cooperation in keeping the space comfortable for everyone.</p>
+
+      <div class="section" aria-labelledby="time">
+        <div class="rule-title"><h2 id="time">🕓 Check-in & Checkout</h2></div>
+        <ul class="rules">
+          <li><strong>Check-in:</strong> After 3:00 PM</li>
+          <li><strong>Checkout:</strong> Before 11:00 AM</li>
+          <li><strong>Self check-in:</strong> Smart lock provided</li>
+        </ul>
+      </div>
+
+      <div class="section" aria-labelledby="guest">
+        <div class="rule-title"><h2 id="guest">👥 Guest Policy</h2></div>
+        <ul class="rules">
+          <li>Maximum of <strong>8 guests</strong> allowed. <span class="fees"> (An additional $109 applies per unauthorized guest.)</span></li>
+          <li>A <strong>valid ID</strong> is required for all overnight guests, as per local laws.</li>
+        </ul>
+      </div>
+
+      <div class="section" aria-labelledby="pets">
+        <div class="rule-title"><h2 id="pets">🐾 Pets</h2></div>
+        <ul class="rules">
+          <li>Pets are welcome!</li>
+          <li>Please do not leave pets unattended inside the home.</li>
+        </ul>
+      </div>
+
+      <div class="section" aria-labelledby="noise">
+        <div class="rule-title"><h2 id="noise">🎉 Noise, Events & Smoking</h2></div>
+        <ul class="rules">
+          <li><strong>Quiet hours:</strong> 11:00 PM – 8:00 AM. <span class="fees"> (A $799 charge applies for noise violations.)</span></li>
+          <li><strong>No parties or events.</strong> <span class="fees"> (Unauthorized events: $1,089 per night.)</span></li>
+          <li><strong>No smoking inside the home.</strong> <span class="fees"> (Smoking fee: $99.)</span></li>
+          <li><strong>No commercial photography or filming.</strong></li>
+        </ul>
+      </div>
+
+      <div class="section" aria-labelledby="during">
+        <div class="rule-title"><h2 id="during">🧺 During Your Stay</h2></div>
+        <ul class="rules">
+          <li>This is <strong>not a party house.</strong></li>
+          <li>Please remove your shoes by the door if it rains or snows.</li>
+          <li><strong>Crib</strong> and <strong>baby gate</strong> available upon request.</li>
+          <li>Please respect the home and furniture.</li>
+          <li><strong>All illegal drugs and substances are prohibited.</strong></li>
+          <li>Privacy-friendly noise monitoring by <strong>Minut</strong> is active (no conversations recorded).</li>
+          <li><strong>Stays are limited to 28 days</strong> at a time.</li>
+        </ul>
+      </div>
+
+      <!-- Confirmation -->
+      <div class="section" aria-labelledby="confirm">
+        <div class="checkbox-row">
+          <input id="agree" type="checkbox" aria-describedby="agree-desc" />
+          <label for="agree">I have read and agree to the house rules.</label>
+        </div>
+
+        <button id="confirmBtn" class="primary" disabled>Confirm &amp; Continue</button>
+
+        <div id="thankyou" class="thankyou" role="status" aria-live="polite">
+          ✅ Thank you for confirming. Your host will send you your access code shortly.
+        </div>
+
+        <p class="small" style="margin-top:10px">
+          By confirming you agree to follow the house rules. <span class="host-sign">Warm regards, Kole</span>
+        </p>
+      </div>
+    </div>
+
+    <footer>
+      <p class="small">If automatic email does not work, your browser will open an email composer so you can send the confirmation manually.</p>
+    </footer>
+  </div>
+
+  <script>
+    // -----------------------------
+    // CONFIGURATION - EDIT THESE
+    // -----------------------------
+    // Fill these with values you get from emailjs.com
+    // - USER_ID: your EmailJS user id (a public key)
+    // - SERVICE_ID: the service id you create under EmailJS (e.g., "service_xxx")
+    // - TEMPLATE_ID: the template id you create under EmailJS (e.g., "template_xxx")
+    //
+    // If you don't want to use EmailJS, leave them blank and the page will fall back to 'mailto:'.
+    const EMAILJS_USER_ID = "";     // <-- put your EmailJS USER ID here (example: "user_abc123")
+    const EMAILJS_SERVICE_ID = "";  // <-- put your EmailJS SERVICE ID here
+    const EMAILJS_TEMPLATE_ID = ""; // <-- put your EmailJS TEMPLATE ID here
+
+    // Host email to receive confirmations
+    const HOST_EMAIL = "koledowotd@gmail.com";
+
+    // -----------------------------
+    // END CONFIGURATION
+    // -----------------------------
+
+    // Initialize EmailJS if configured
+    if (EMAILJS_USER_ID) {
+      if (typeof emailjs !== 'undefined' && emailjs.init) {
+        emailjs.init(EMAILJS_USER_ID);
+      }
+    }
+
+    const agreeCheckbox = document.getElementById('agree');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const thankyou = document.getElementById('thankyou');
+
+    agreeCheckbox.addEventListener('change', () => {
+      confirmBtn.disabled = !agreeCheckbox.checked;
+    });
+
+    confirmBtn.addEventListener('click', async () => {
+      if (!agreeCheckbox.checked) return;
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = 'Sending...';
+
+      const timestamp = new Date().toISOString(); // ISO timestamp (UTC)
+      const humanTime = (new Date()).toLocaleString();
+
+      // Prefer EmailJS (automatic). Must have all three ids configured.
+      if (EMAILJS_USER_ID && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && typeof emailjs !== 'undefined') {
+        const templateParams = {
+          host_email: HOST_EMAIL,
+          timestamp_iso: timestamp,
+          timestamp_local: humanTime,
+          agreement: "Guest confirmed house rules (no name provided)."
+        };
+
+        try {
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+          // success
+          showThankYou();
+        } catch (err) {
+          console.error('EmailJS send failed:', err);
+          // fallback to mailto if automatic send fails
+          fallbackMailto(HOST_EMAIL, humanTime);
+        } finally {
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = 'Confirm & Continue';
+        }
+
+      } else {
+        // Fallback: open user's email client (not fully automatic)
+        fallbackMailto(HOST_EMAIL, humanTime);
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = 'Confirm & Continue';
+      }
+    });
+
+    function showThankYou(){
+      thankyou.style.display = 'block';
+      // Optionally hide the button and checkbox to prevent repeated submits
+      agreeCheckbox.disabled = true;
+      confirmBtn.style.display = 'none';
+      // scroll to message for mobile users
+      thankyou.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    function fallbackMailto(hostEmail, humanTime){
+      // Compose a short confirmation email to the host. Guests must send this manually.
+      const subject = encodeURIComponent('House Rules Confirmation');
+      const body = encodeURIComponent(
+        `Hello Kole,%0D%0A%0D%0AThis is an automatic confirmation that a guest confirmed the house rules on ${humanTime}.%0D%0A%0D%0ANote: This message was created by the property's confirmation page. The guest did not provide a name.%0D%0A%0D%0AThanks,%0D%0AGuest`
+      );
+      // Open default mail client
+      window.location.href = `mailto:${hostEmail}?subject=${subject}&body=${body}`;
+      // Show the thank-you immediately (we can't detect if they actually sent the email)
+      showThankYou();
+    }
+
+    // Accessibility: allow Enter key to trigger button when checkbox focused
+    agreeCheckbox.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !confirmBtn.disabled) confirmBtn.click();
+    });
+  </script>
+
+  <!--
+    QUICK EMAILJS SETUP (if you choose to use EmailJS - recommended for automatic emailing):
+
+    1) Go to https://www.emailjs.com/ and sign up / log in.
+    2) Add an Email Service (Gmail, Outlook, or another SMTP relay) or use their built-in options.
+    3) Create an Email Template. In the template body you can use these variables:
+       - host_email, timestamp_iso, timestamp_local, agreement
+       Example template body:
+         "Host: {{host_email}}
+          Agreement: {{agreement}}
+          Timestamp (UTC): {{timestamp_iso}}
+          Timestamp (Local): {{timestamp_local}}"
+    4) Note the SERVICE ID (e.g., service_xxx) and TEMPLATE ID (e.g., template_xxx).
+    5) Go to Account -> EmailJS SDK -> copy your USER ID (user_xxx) and paste into EMAILJS_USER_ID above.
+    6) Fill SERVICE_ID and TEMPLATE_ID in the top of this file.
+    7) Upload this file to your host and test.
+
+</body>
+</html>
